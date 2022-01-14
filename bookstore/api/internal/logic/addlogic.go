@@ -3,7 +3,7 @@ package logic
 import (
 	"bookstore/api/internal/svc"
 	"bookstore/api/internal/types"
-	"bookstore/rpc/add/adder"
+	"bookstore/rpc/book/book"
 	"context"
 
 	"github.com/tal-tech/go-zero/core/logx"
@@ -24,7 +24,7 @@ func NewAddLogic(ctx context.Context, svcCtx *svc.ServiceContext) AddLogic {
 }
 
 func (l *AddLogic) Add(req types.AddReq) (*types.AddResp, error) {
-	resp, err := l.svcCtx.Adder.Add(l.ctx, &adder.AddReq{
+	resp, err := l.svcCtx.BookClient.Add(l.ctx, &book.AddReq{
 		Book:  req.Book,
 		Price: req.Price,
 	})

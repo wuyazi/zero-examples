@@ -1,9 +1,9 @@
-Name: add.rpc
-ListenOn: 127.0.0.1:8080
+Name: book.rpc
+ListenOn: 127.0.0.1:8082
 Etcd:
   Hosts:
   - 127.0.0.1:2379
-  Key: add.rpc
+  Key: book.rpc
 DataSource: root:123123@tcp(localhost:3306)/test1
 Table: book
 Cache:

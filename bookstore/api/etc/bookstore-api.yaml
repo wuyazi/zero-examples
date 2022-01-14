@@ -6,6 +6,11 @@ Add:
     Hosts:
       - localhost:2379
     Key: add.rpc
+Book:
+  Etcd:
+    Hosts:
+      - localhost:2379
+    Key: book.rpc
 Check:
   Etcd:
     Hosts:
