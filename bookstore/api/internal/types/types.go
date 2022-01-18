@@ -7,7 +7,12 @@ type AddReq struct {
 }
 
 type AddResp struct {
-	Ok bool `json:"ok"`
+	Id int64 `json:"id"`
+}
+
+type UpdateReq struct {
+	Id int64 `form:"id"`
+	Price int64 `form:"price"`
 }
 
 type CheckReq struct {

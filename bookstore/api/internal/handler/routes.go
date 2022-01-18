@@ -18,6 +18,11 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 			{
 				Method:  http.MethodGet,
+				Path:    "/update",
+				Handler: UpdateHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
 				Path:    "/check",
 				Handler: CheckHandler(serverCtx),
 			},

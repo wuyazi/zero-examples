@@ -4,10 +4,11 @@
 package server
 
 import (
+	"bookstore/rpc/book/internal/command"
 	"context"
+	"fmt"
 
 	"bookstore/rpc/book/book"
-	"bookstore/rpc/book/internal/logic"
 	"bookstore/rpc/book/internal/svc"
 )
 
@@ -22,11 +23,21 @@ func NewBookServer(svcCtx *svc.ServiceContext) *BookServer {
 }
 
 func (s *BookServer) Add(ctx context.Context, in *book.AddReq) (*book.AddResp, error) {
-	l := logic.NewAddLogic(ctx, s.svcCtx)
-	return l.Add(in)
+	cmd := command.BookCreateCommand{Book: in.Book, Price: in.Price}
+	r, err := command.BookCreateCommandHandle(ctx, cmd)
+	if err != nil {
+		fmt.Println("---", err)
+	}
+	rr := r.(*command.BookAggregate)
+	return &book.AddResp{Id: rr.AbstractAggregate.Id}, nil
 }
 
-func (s *BookServer) Update(ctx context.Context, in *book.AddReq) (*book.AddResp, error) {
-	l := logic.NewUpdateLogic(ctx, s.svcCtx)
-	return l.Update(in)
+func (s *BookServer) UpdatePrice(ctx context.Context, in *book.UpdatePriceReq) (*book.AddResp, error) {
+	cmd := command.BookUpdateCommand{BookId: in.Id, Price: in.Price}
+	r, err := command.BookUpdateCommandHandle(ctx, cmd)
+	if err != nil {
+		fmt.Println("---", err)
+	}
+	rr := r.(*command.BookAggregate)
+	return &book.AddResp{Id: rr.AbstractAggregate.Id}, nil
 }

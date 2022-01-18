@@ -26,10 +26,10 @@ func main() {
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
 	ctx := svc.NewServiceContext(c)
-	adderSrv := server.NewBookServer(ctx)
+	bookSrv := server.NewBookServer(ctx)
 
 	s, err := zrpc.NewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
-		book.RegisterBookServer(grpcServer, adderSrv)
+		book.RegisterBookServer(grpcServer, bookSrv)
 	})
 	logx.Must(err)
 

@@ -13,12 +13,13 @@ import (
 )
 
 type (
-	AddReq  = book.AddReq
-	AddResp = book.AddResp
+	AddReq         = book.AddReq
+	AddResp        = book.AddResp
+	UpdatePriceReq = book.UpdatePriceReq
 
 	Book interface {
 		Add(ctx context.Context, in *AddReq, opts ...grpc.CallOption) (*AddResp, error)
-		Update(ctx context.Context, in *AddReq, opts ...grpc.CallOption) (*AddResp, error)
+		UpdatePrice(ctx context.Context, in *UpdatePriceReq, opts ...grpc.CallOption) (*AddResp, error)
 	}
 
 	defaultBook struct {
@@ -37,7 +38,7 @@ func (m *defaultBook) Add(ctx context.Context, in *AddReq, opts ...grpc.CallOpti
 	return client.Add(ctx, in, opts...)
 }
 
-func (m *defaultBook) Update(ctx context.Context, in *AddReq, opts ...grpc.CallOption) (*AddResp, error) {
+func (m *defaultBook) UpdatePrice(ctx context.Context, in *UpdatePriceReq, opts ...grpc.CallOption) (*AddResp, error) {
 	client := book.NewBookClient(m.cli.Conn())
-	return client.Update(ctx, in, opts...)
+	return client.UpdatePrice(ctx, in, opts...)
 }

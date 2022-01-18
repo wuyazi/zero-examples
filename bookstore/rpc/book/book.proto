@@ -8,10 +8,15 @@ message addReq {
 }
 
 message addResp {
-    bool ok = 1;
+    int64 id = 1;
+}
+
+message updatePriceReq {
+    int64 id = 1;
+    int64 price = 2;
 }
 
 service book {
     rpc add(addReq) returns(addResp);
-    rpc update(addReq) returns(addResp);
+    rpc updatePrice(updatePriceReq) returns(addResp);
 }

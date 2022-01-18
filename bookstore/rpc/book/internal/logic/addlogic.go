@@ -34,6 +34,6 @@ func (l *AddLogic) Add(in *book.AddReq) (*book.AddResp, error) {
 	}
 
 	return &book.AddResp{
-		Ok: true,
+		Id: 0,
 	}, nil
 }
