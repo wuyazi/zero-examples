@@ -14,11 +14,6 @@ type BookAggregate struct {
 	CreateTime time.Time `json:"create_time"`
 }
 
-func (b *BookAggregate) AggregateName() (name string) {
-	name = "BookAggregate"
-	return
-}
-
 func (b *BookAggregate) Create(book string, price int64) (err error) {
 	book = strings.TrimSpace(book)
 	if book == "" {
@@ -36,9 +31,6 @@ func (b *BookAggregate) Create(book string, price int64) (err error) {
 		Price:      price,
 		CreateTime: utcNow,
 	})
-	//b.Book = book
-	//b.Price = price
-	//b.CreateTime = utcNow
 	return
 }
 
@@ -55,17 +47,13 @@ func (b *BookAggregate) UpdatePrice(price int64) (err error) {
 		return
 	}
 
-	utcNow := time.Now().UTC()
 	b.Apply(&BookChangedPrice{
-		Price:      price,
-		CreateTime: utcNow,
+		Price: price,
 	})
-	//b.Price = price
 	return
 }
 
-func (b *BookAggregate) OnBookUpdatedPrice(event *BookChangedPrice) (err error) {
+func (b *BookAggregate) OnBookChangedPrice(event *BookChangedPrice) (err error) {
 	b.Price = event.Price
-	b.CreateTime = event.CreateTime
 	return
 }

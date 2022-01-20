@@ -25,7 +25,10 @@ func BookCreateCommandHandle(ctx context.Context, command0 gddd.Command) (result
 	}
 	// create account
 	book := &BookAggregate{}
-	book.Id = gddd.NewAggregateId()
+	err = book.InitId()
+	if err != nil {
+		return
+	}
 	err = book.Create(cmd.Book, cmd.Price)
 	if err != nil {
 		return

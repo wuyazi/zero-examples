@@ -42,6 +42,7 @@ func BookUpdateCommandHandle(ctx context.Context, command0 gddd.Command) (result
 	}
 	ok, saveErr := internal.Repository().Save(ctx, book)
 	if saveErr != nil {
+		return nil, saveErr
 	}
 	if !ok {
 		err = fmt.Errorf("create account failed")

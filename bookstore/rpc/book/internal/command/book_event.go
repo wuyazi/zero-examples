@@ -8,17 +8,6 @@ type BookCreated struct {
 	CreateTime time.Time `json:"create_time"`
 }
 
-func (t *BookCreated) EventName() (name string) {
-	name = "BookCreated"
-	return
-}
-
 type BookChangedPrice struct {
-	Price      int64     `json:"price"`
-	CreateTime time.Time `json:"create_time"`
-}
-
-func (t *BookChangedPrice) EventName() (name string) {
-	name = "BookUpdatedPrice"
-	return
+	Price int64 `json:"price"`
 }
