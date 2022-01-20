@@ -25,19 +25,11 @@ func (b *BookAggregate) Create(book string, price int64) (err error) {
 		return
 	}
 
-	utcNow := time.Now().UTC()
 	b.Apply(&BookCreated{
 		Book:       book,
 		Price:      price,
-		CreateTime: utcNow,
+		CreateTime: time.Now().UTC(),
 	})
-	return
-}
-
-func (b *BookAggregate) OnBookCreated(event *BookCreated) (err error) {
-	b.Book = event.Book
-	b.Price = event.Price
-	b.CreateTime = event.CreateTime
 	return
 }
 
@@ -50,10 +42,5 @@ func (b *BookAggregate) UpdatePrice(price int64) (err error) {
 	b.Apply(&BookChangedPrice{
 		Price: price,
 	})
-	return
-}
-
-func (b *BookAggregate) OnBookChangedPrice(event *BookChangedPrice) (err error) {
-	b.Price = event.Price
 	return
 }
